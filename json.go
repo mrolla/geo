@@ -6,8 +6,9 @@ type FeatureCollection struct {
 }
 
 type Feature struct {
-	Type     string `json:"type"`
-	Geometry Geometry `json:"geometry"`
+	Type       string `json:"type"`
+	Geometry   Geometry `json:"geometry"`
+	Properties []Property `json:"properties"`
 }
 
 type Geometry struct {
@@ -15,8 +16,12 @@ type Geometry struct {
 	Coordinates interface{} `json:"coordinates"`
 }
 
+type Property struct {
+}
+
 func NewFeatureCollection() (*FeatureCollection) {
-	return &FeatureCollection{Type: "FeatureCollection"}
+	features := make([]Feature, 0)
+	return &FeatureCollection{Type: "FeatureCollection", Features: features}
 }
 
 func (f *FeatureCollection) Add(feature *Feature) {

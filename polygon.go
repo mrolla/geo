@@ -32,7 +32,8 @@ func (p *Polygon) AddLinearRing(ring LinearRing) *Polygon {
 
 func (p *Polygon) ToGeoJson() (*Feature) {
 	geometry := Geometry{Type: "Polygon", Coordinates: p.LinearRings}
-	return &Feature{Type: "Feature", Geometry: geometry}
+	properties := make([]Property, 0)
+	return &Feature{Type: "Feature", Geometry: geometry, Properties: properties}
 }
 
 func (p *Polygon) Scan(value interface{}) (err error) {
@@ -79,10 +80,6 @@ func (p *Polygon) Scan(value interface{}) (err error) {
 
 		binary.Read(buffer, order, &temp)
 		length := int(temp)
-
-		if len(data) != 13 + 16 * length {
-			return ErrInvalidWkb
-		}
 
 		points := make([]Point, length)
 		for i := 0; i < length; i++ {
