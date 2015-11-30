@@ -8,15 +8,12 @@ type FeatureCollection struct {
 type Feature struct {
 	Type       string `json:"type"`
 	Geometry   Geometry `json:"geometry"`
-	Properties []Property `json:"properties"`
+	Properties map[string]interface{} `json:"properties"`
 }
 
 type Geometry struct {
 	Type        string `json:"type"`
 	Coordinates interface{} `json:"coordinates"`
-}
-
-type Property struct {
 }
 
 func NewFeatureCollection() (*FeatureCollection) {
@@ -26,4 +23,8 @@ func NewFeatureCollection() (*FeatureCollection) {
 
 func (f *FeatureCollection) Add(feature *Feature) {
 	f.Features = append(f.Features, *feature)
+}
+
+func (f *Feature) AddProperty(key string, value string) {
+	f.Properties[key] = value
 }

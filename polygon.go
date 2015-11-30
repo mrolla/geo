@@ -32,7 +32,7 @@ func (p *Polygon) AddLinearRing(ring LinearRing) *Polygon {
 
 func (p *Polygon) ToGeoJson() (*Feature) {
 	geometry := Geometry{Type: "Polygon", Coordinates: p.LinearRings}
-	properties := make([]Property, 0)
+	properties := make(map[string]interface{})
 	return &Feature{Type: "Feature", Geometry: geometry, Properties: properties}
 }
 
